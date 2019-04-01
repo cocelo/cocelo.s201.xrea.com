@@ -3,10 +3,11 @@ html
   head
     = include partials/header.html .
   body
-    section id="main"
-      ul
-        {{ range .Data.Pages.ByTitle }}
-          li
-            a href="{{ .Permalink }}" {{ .Title }}
-        {{ end }}
+    main
+      section
+        ul
+          {{ range .Data.Pages.ByTitle }}
+            li
+              a href="{{ .Permalink }}" {{ .Title }}
+          {{ end }}
     = include partials/footer.html .

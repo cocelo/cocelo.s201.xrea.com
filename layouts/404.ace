@@ -3,13 +3,13 @@ html
   head
     = include partials/header.html .
   body
-    = include partials/xrea_ad.html .
-    section id="main"
-      div id="notfound"
-        h1 id="title" 404 Not Found
-      ul
-        {{ range .Data.Pages.ByTitle }}
-          li
-            a href="{{ .Permalink }}" {{ .Title }}
-        {{ end }}
+    main
+      section
+        div id="notfound"
+          h1 id="title" 404 Not Found
+        ul
+          {{ range .Data.Pages.ByTitle }}
+            li
+              a href="{{ .Permalink }}" {{ .Title }}
+          {{ end }}
     = include partials/footer.html .
