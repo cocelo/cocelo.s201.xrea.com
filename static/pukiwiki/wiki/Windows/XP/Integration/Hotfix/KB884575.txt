@@ -1,0 +1,21 @@
+* KB884575 [#p116683e]
+
+#contents
+
+** Microsoft Title [#wf61e0de]
+Windows XP ベースのポータブル コンピュータで、バッテリが予想以上に早く消耗する
+
+** Microsoft Knowledge Base [#bcdce896]
+http://support.microsoft.com/kb/884575
+
+** Microsoft Download Link [#l573df0b]
+None.
+
+** Microsoft Direct Download Link [#xb0282d2]
+None.
+
+** File [#p802682f]
+- Intelppm.sys
+-- 5.1.2600.2508
+- Processr.sys
+-- 5.1.2600.2508

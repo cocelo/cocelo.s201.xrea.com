@@ -1,0 +1,38 @@
+title                                = "Cocelo Style"
+baseurl                              = "http://cocelo.s201.xrea.com/"
+languageCode                         = "ja-jp"
+defaultContentLanguage               = "ja"
+defaultContentLanguageInSubdir       = false
+enableMissingTranslationPlaceholders = false
+hasCJKLanguage                       = true
+canonifyurls                         = true
+disablePathToLower                   = true
+disableHugoGeneratorInject           = true
+disqusShortname                      = "cocelostylexrea"
+
+[params]
+  author      = "cocelo"
+  description = "FreeBSDやLinux、プログラミングのメモ書きサイトです"
+  keywords    = [
+    "FreeBSD",
+    "Linux",
+    "Server",
+    "サーバー",
+    "プログラミング"
+  ]
+  analytics = "UA-62462066-1"
+
+[blackfriday]
+  plainIdAnchors = true
+  extensions     = [
+    "tables",
+    "fencedCode",
+    "autolink",
+    "strikethrough",
+    "spaceHeaders",
+    "hardLineBreak",
+    "tabSizeEight",
+    "headerIds",
+    "titleblock",
+    "autoHeaderIds",
+  ]

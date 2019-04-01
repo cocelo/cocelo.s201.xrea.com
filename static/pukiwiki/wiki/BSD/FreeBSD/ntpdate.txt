@@ -1,0 +1,18 @@
+* ntpdate Memo [#z96965fc]
+
+#contents
+
+** Link [#v9f8a590]
+- [[NTPDATE(8):http://www.jp.freebsd.org/cgi/mroff.cgi?subdir=man&lc=1&cmd=&man=ntpdate&dir=jpman-6.2.2%2Fman&sect=0]]
+
+** Memo [#f593b168]
+ntpd 設定してる場合はいりません。
+
+** Install [#d437f1cb]
+ntpdate は FreeBSD には標準で入っています。
+
+** Setting [#zbc46d17]
+ # vi /etc/rc.conf
+
+ ntpdate_enable="YES"
+ ntpdate_flags="-b ntp.jst.mfeed.ad.jp"

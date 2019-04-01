@@ -1,0 +1,16 @@
+* Driver [#b636bd5e]
+ドライバを統合する。
+
+#contents
+
+** Intel Chipset Driver [#d2a699c0]
+ Setup.exe -S
+
+** nVidial Graphics Driver [#me626101]
+ setup.exe -s
+
+** Realtek ALC880 Audio Driver [#l149f591]
+ setup.exe -s -f2c:\mylog.log -z[-rpC:\RHDSetup.log]
+
+** VIA VT6105 Driver [#zb27e0f1]
+ WinSetup.exe -s

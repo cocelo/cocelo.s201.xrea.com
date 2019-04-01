@@ -1,0 +1,7 @@
+* 共有ドキュメントフォルダをマイコンピュータから削除 [#y3da633c]
+
+#contents
+
+**Entry [#m135694c]
+ [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\DelegateFolders\;{59031a47-3f72-44a7-89c5-5595fe6b30ee}]
+ @=""

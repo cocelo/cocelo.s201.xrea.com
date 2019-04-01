@@ -1,0 +1,123 @@
++++
+title = "[PukiWiki:wiki] BSD/FreeBSD/Munin"
+date = "2009-10-22T10:01:12Z"
++++
+
+# Munin Memo  {#d4f2eb90}
+
+
+## Install  {#r7a2fc21}
+
+```
+# portinstall databases/rrdtool
+
+See /usr/local/share/examples/rrdtool for some demonstration code
+
+# portinstall sysutils/munin-node
+
+Would you like me to create it [y]? [Enter]
+
+********************************************************************
+Unless this file already existed, a sample configuration file
+has been placed in /usr/local/etc/munin/munin-node.conf.
+
+Please edit it according to your needs.
+
+********************************************************************
+
+The Munin client will *not* be started automatically. To allow it
+to start, put this line in /etc/rc.conf:
+
+munin_node_enable="YES"
+
+Then, it will be started on the next boot. If this line is already
+present, the client will be started now.  Otherwise, edit
+/etc/rc.conf and execute this command:
+
+    /usr/local/etc/rc.d/munin-node.sh start
+********************************************************************
+
+Would you like me to set up log rotation [y]? [Enter]
+
+# portinstall sysutils/munin-main
+
+Would you like me to create it [y]? [Enter]
+
+********************************************************************
+Unless this file already existed, a sample configuration file
+has been placed in /usr/local/etc/munin/munin.conf.
+
+Please edit it according to your needs.
+
+The Munin server will be run from cron under the user 'munin'.
+********************************************************************
+
+# vi /etc/rc.conf
+
+munin_node_enable="YES"
+
+# /usr/local/etc/rc.d/munin-node.sh start
+
+```
+
+## Setting  {#r239b521}
+
+```
+# vi /usr/local/etc/apache22/Includes/munin.conf
+
+Alias /munin/ "/usr/local/www/munin/"
+
+<Directory "/usr/local/www/munin/">
+  Options FollowSymLinks
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+</Directory>
+
+```
+
+## mbmon  {#a0f33de7}
+
+```
+# ln -s /usr/local/share/munin/plugins/mbmon_ /usr/local/etc/munin/plugins/mbmon_FAN
+# ln -s /usr/local/share/munin/plugins/mbmon_ /usr/local/etc/munin/plugins/mbmon_Voltage
+# ln -s /usr/local/share/munin/plugins/mbmon_ /usr/local/etc/munin/plugins/mbmon_TEMP
+
+# vi /usr/local/etc/munin/plugin-conf.d/plugins.conf
+
+[mbmon*]
+env.mbmon /usr/local/bin/mbmon
+
+# /usr/local/etc/rc.d/munin-node.sh restart
+
+```
+
+## Apache  {#td9823b6}
+
+```
+# portinstall www/p5-libwww
+# rehash
+# /usr/local/etc/rc.d/apache22 restart
+
+# ln -s /usr/local/share/munin/plugins/apache_accesses /usr/local/etc/munin/plugins/apache_accesses
+# ln -s /usr/local/share/munin/plugins/apache_processes /usr/local/etc/munin/plugins/apache_processes
+# ln -s /usr/local/share/munin/plugins/apache_volume /usr/local/etc/munin/plugins/apache_volume
+
+# /usr/local/etc/rc.d/munin-node.sh restart
+
+```
+
+## MySQL  {#w2dfd5b2}
+
+```
+# ln -s /usr/local/share/munin/plugins/mysql_bytes /usr/local/etc/munin/plugins/mysql_bytes
+# ln -s /usr/local/share/munin/plugins/mysql_queries /usr/local/etc/munin/plugins/mysql_queries
+# ln -s /usr/local/share/munin/plugins/mysql_slowqueries /usr/local/etc/munin/plugins/mysql_slowqueries
+# ln -s /usr/local/share/munin/plugins/mysql_threads /usr/local/etc/munin/plugins/mysql_threads
+
+# /usr/local/etc/rc.d/munin-node.sh restart
+
+```
+
+# Link  {#w8d030b3}
+[IPMItoolの出力をmuninでグラフ化する - mteramotoの日記](http://d.hatena.ne.jp/mteramoto/20090705/p3 "IPMItoolの出力をmuninでグラフ化する - mteramotoの日記")

@@ -1,0 +1,57 @@
++++
+title = "[PukiWiki:wiki] Shell/bash/bash-builtins"
+date = "2008-12-10T09:33:22Z"
++++
+
+- :
+- source
+- alias
+- bg
+- bind
+- break
+- builtin
+- cd
+- command
+- compgen
+- complete
+- continue
+- typeset
+- dirs
+- disown
+- echo
+- enable
+- eval
+- exec
+- exit
+- export
+- fc
+- fg
+- getopts
+- hash
+- help
+- history
+- jobs
+- kill
+- let
+- local
+- logout
+- popd
+- printf
+- pushd
+- pwd
+- read
+- readonly
+- return
+- set
+- shift
+- shopt
+- suspend
+- test ( **[** **]** )
+- times
+- trap
+- type
+- ulimit
+- umask
+- unalias
+- unset
+- wait

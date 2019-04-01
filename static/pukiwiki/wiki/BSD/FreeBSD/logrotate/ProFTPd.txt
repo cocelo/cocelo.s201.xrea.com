@@ -1,0 +1,14 @@
+* 目次 [#nfd41020]
+#contents
+
+* ProFTPd [#ef15ba47]
+ # vi /usr/local/etc/logrotate.d/proftpd
+
+ /var/log/proftpd/*.log {
+     daily
+     rotate 7
+     create
+     nocompress
+     ifempty
+     missingok
+ }

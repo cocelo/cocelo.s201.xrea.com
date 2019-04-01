@@ -1,0 +1,11 @@
+* Windows Updates Downloader [#l5d6733f]
+Hotfix をダウンロード出来るソフトウェア。
+
+#contents
+
+** How to [#ef74557b]
+[[スキーマ解説>Windows/XP/Integration/Windows Updates Downloader/Schema]]
+
+** Link [#w30dac0b]
+[[Windows Updates Downloader:http://wud.jcarle.com/]]~
+[[MSFN Forums -> Windows Updates Downloader:http://www.msfn.org/board/index.php?showforum=147]]

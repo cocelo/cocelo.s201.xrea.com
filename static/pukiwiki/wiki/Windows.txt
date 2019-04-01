@@ -1,0 +1,5 @@
+#contents
+
+* Windows XP [#ia20a860]
+Windows XP のメモ。
+[[Windows XP>Windows/XP]]

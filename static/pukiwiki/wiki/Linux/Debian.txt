@@ -1,0 +1,19 @@
+* Debian [#y2bdc78a]
+Debian のメモとかリンクとか。
+
+#contents
+
+** Official Site [#a399432b]
+[[Debian Official Site:http://www.debian.org/]]
+
+** Current Release [#qbbaa519]
+Sarge
+
+** Link [#z60b5bc0]
+*** 2ch [#b7883d26]
+[[2ch Debian GNU/Linux スレッドテンプレ:http://debian.fam.cx/]]~
+*** 自宅サーバ [#sc544d77]
+[[Linux Home Server Memo:http://asshole.dip.jp/]]~
+
+** Contents [#x8543e75]
+#ls

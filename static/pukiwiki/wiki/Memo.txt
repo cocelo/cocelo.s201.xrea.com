@@ -1,0 +1,12 @@
+* Memo [#f3aa95c3]
+雑多なメモ。
+
+#contents
+
+** Windows XP および Windows 2000 で Internet Explorer 6 SP1 のセットアップファイルのダウンロードのみを行う方法 [#x9cf8d8a]
+http://support.microsoft.com/kb/893582
+
+** Pukiwiki のページ作成 [#d9fa3799]
+#contents で目次を作成。~
+ツリー型を使用して、データベースの様に使う。~
+ツリーの原則としてはあまり深くなりすぎない事。

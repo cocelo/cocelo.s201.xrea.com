@@ -1,0 +1,185 @@
+#contents
+
+* BusyBox のダウンロード [#e7d9e22d]
+#pre{{
+# wget http://busybox.net/downloads/busybox-1.15.3.tar.bz2
+}}
+
+* 展開 [#c4767659]
+#pre{{
+# tar xvjf busybox-1.15.3.tar.bz2
+# cd busybox-1.15.3
+}}
+
+* 設定 [#t2fe0785]
+#pre{{
+# make menuconfig
+    Busybox Setting --->
+        Build Options --->
+            [*] Build BusyBox as a static binary (no shared libs)
+}}
+
+* コンパイル [#rb000d14]
+#pre{{
+# make
+}}
+
+* インストール [#z021f106]
+通常ならカレントディレクトリの_installにインストールされる。
+
+#pre{{
+# sudo make install
+}}
+
+* initramfsの作成 [#f790baf2]
+coLinuxの簡易インストーラーとしてinitramfsを作成する。
+
+#pre{{
+# cd _install
+# sudo rm linuxrc
+# sudo mkdir -p proc sys dev mnt tmp etc/init.d root var/run var/lock var/tmp
+# sudo chmod 1777 tmp
+# sudo chmod 1777 var/tmp
+# sudo sh -c 'echo none /proc proc defaults 0 0 > etc/fstab'
+# sudo sh -c 'echo none /sys sysfs defaults 0 0 >> etc/fstab'
+# sudo sh -c 'echo nameserver 8.8.8.8 > etc/resolv.conf'
+# sudo sh -c 'echo nameserver 8.8.4.4 >> etc/resolv.conf'
+# sudo sh -c 'echo 127.0.0.1 localhost > etc/hosts'
+# sudo sh -c 'echo busybox > etc/hostname'
+# sudo sh -c 'echo root:*:0:0:root:/:/bin/sh > etc/passwd'
+# sudo sh -c 'echo root:x:0: > etc/group'
+# sudo sh -c 'echo localhost 127.0.0.0 > etc/networks'
+# sudo sh -c 'echo localnet1 192.168.0.0 >> etc/networks'
+# sudo sh -c 'echo localnet2 10.0.0.0 >> etc/networks'
+# sudo sh -c 'printf "order hosts, bind\nmulti on\n" > etc/host.conf'
+# sudo cp -a /usr/share/zoneinfo/Asia/Tokyo etc/localtime
+# sudoedit etc/nsswitch.conf
+}}
+
+#pre{{
+passwd: files
+shadow: files
+group: files
+
+hosts: files dns
+networks: files
+
+protocols: files
+services: files
+ethers: files
+rpc: files
+}}
+
+#pre{{
+# sudo touch init
+# sudo chmod +x init
+# sudoedit init
+}}
+
+#pre{{
+#!/bin/sh
+
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin"
+
+exec /sbin/init
+}}
+
+#pre{{
+# sudoedit etc/inittab
+}}
+
+#pre{{
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::restart:/sbin/init
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+::shutdown:/sbin/swapoff -a
+}}
+
+#pre{{
+# sudo touch etc/init.d/rcS
+# sudo chmod +x etc/init.d/rcS
+# sudoedit etc/init.d/rcS
+}}
+
+#pre{{
+#!/bin/sh
+
+/bin/mount -a
+
+/sbin/mdev -s
+echo "/sbin/mdev" > /proc/sys/kernel/hotplug
+
+/bin/hostname -F /etc/hostname
+
+/sbin/ifconfig lo 127.0.0.1
+/sbin/udhcpc
+}}
+
+#pre{{
+# sudo mkdir -p usr/share/udhcpc
+# sudo touch usr/share/udhcpc/default.script
+# sudo chmod +x usr/share/udhcpc/default.script
+# sudoedit usr/share/udhcpc/default.script
+}}
+
+#pre{{
+#!/bin/sh
+
+RESOLV_CONF="/etc/resolv.conf"
+
+[ -n "$1" ] || { echo "Error: should be called from udhcpc"; exit 1; }
+
+NETMASK=""
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+BROADCAST="broadcast +"
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+
+case "$1" in
+  deconfig)
+    ifconfig $interface 0.0.0.0
+    ;;
+  renew|bound)
+    ifconfig $interface $ip $NETMASK $BROADCAST
+    if [ -n "$router" ] ; then
+      while route del default gw 0.0.0.0 dev $interface ; do
+        :
+      done
+
+      metric=0
+      for i in $router ; do
+        route add default gw $i dev $interface metric $((metric++))
+      done
+    fi
+    echo -n > $RESOLV_CONF-$$
+    [ -n "$domain" ] && echo "search $domain" >> $RESOLV_CONF-$$
+    for i in $dns ; do
+      echo " Adding DNS server $i"
+      echo "nameserver $i" >> $RESOLV_CONF-$$
+    done
+    mv $RESOLV_CONF-$$ $RESOLV_CONF
+    ;;
+esac
+
+exit 0
+}}
+
+ついでにdebootstrapも入れておく。
+
+#pre{{
+# cd
+# wget http://archive.ubuntu.com/ubuntu/pool/main/d/debootstrap/debootstrap_1.0.20.tar.gz
+# tar -xvzf debootstrap_1.0.20.tar.gz
+# cd debootstrap
+# sudo make install DESTDIR=~/busybox-1.15.3/_install
+}}
+
+cpio + gzip で固める
+
+#pre{{
+# find . | cpio --quiet -o -H newc | gzip -9 > ../../initrd.img
+}}
+
+* 参考リンク [#z1d0911c]
+[[BusyBox:http://www.busybox.net/]]

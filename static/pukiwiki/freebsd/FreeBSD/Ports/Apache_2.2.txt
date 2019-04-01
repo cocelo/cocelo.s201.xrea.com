@@ -1,0 +1,81 @@
+#contents
+
+* Apache 2.2 の導入 [#e77edfe6]
+Apache 2.2 を用いた Web サーバーを構築します。
+なお、ここでは ezjail 環境での構築方法の解説になります。
+jail 環境で共通して言える事ですが、ループバックインターフェース ( lo0 ) が使えない点意外は特に注意すべき項目はないので、ホスト環境でも応用が利きます。
+
+* インストール [#c72830b0]
+依存関係にある Ports をインストールします。
+
+** Perl 5.8 のインストール [#i8c42098]
+まずは perl 5.8 のインストールから行います。
+
+ # cd /usr/ports/lang/perl5.8
+ # make WITHOUT_USE_PERL=yes install clean
+
+** iconv のインストール [#z39cc061]
+次に iconv を WITH_EXTRA_PATCHES を有効にしてインストールします。
+
+ # cd /usr/ports/converters/libiconv
+ # make -DBATCH WITH_EXTRA_PATCHES=yes install clean
+
+** Python 2.5 のインストール [#u8540e03]
+次に後述の APR ( Apache Portable Runtime ) が Python を要求するのでインストールします。
+
+ # cd /usr/ports/lang/python25
+ # make -DBATCH WITHOUT_IPV6=yes install clean
+
+** APR ( Apache Portable Runtime ) のインストール [#gda7ce78]
+BDB (BerkeleyDB) のサポートと LDAP のサポートを有効にしてインストールします。
+
+ # cd /usr/ports/devel/apr
+ # make APR_UTIL_WITH_BERKELEY_DB=yes APR_UTIL_WITH_LDAP=yes install clean
+
+jail 環境下の場合は [[ML:http://www.mail-archive.com/dev@apr.apache.org/msg19821.html]] を参考に、ホスト環境で以下のコマンドを実行します。
+
+ % sudo sysctl security.jail.allow_raw_sockets=1
+
+aaaaaaaaaaaaaaaa
+** Apache 2.2 のインストール [#vc68e3e1]
+最後に Apache をインストールします。
+
+ # cd /usr/ports/www/apache22
+ # make WITHOUT_IPV6=yes WITH_APR_FROM_PORTS=yes WITH_PCRE_FROM_PORTS=yes \
+ ? WITH_DBM=bdb WITH_MYSQL=yes WITH_DBD=yes WITH_AUTHN_DBD=yes \
+ ? WITH_LDAP=yes WITH_AUTHNZ_LDAP=yes install clean
+
+** コマンドの有効化 [#j02ceb8f]
+最後にインストールされたコマンドを使えるように rehash します。
+
+ # rehash
+
+* 自動起動の設定 [#y2532ccc]
+起動時に Apache が立ち上がるように設定します。
+
+ # printf "\n# Apache 2.2\napache22_enable=\042YES\042\napache22_http_accept_enable=\042YES\042\n" >> /etc/rc.conf
+
+apache22_http_accept_enable は accf_http(9) 参照。
+
+* 基本的な設定 [#ha2dd826]
+インストールした後、まずは基本的な設定を行います。
+
+ # vi /usr/local/etc/apache22/httpd.conf
+
+ #Listen 12.34.56.78:80
+ Listen 192.168.0.1:80
+ 
+ #ServerAdmin you@example.com
+ ServerAdmin webmaster@clx.ath.cx
+ 
+ #ServerName www.example.com:80
+ ServerName www.clx.ath.cx:80
+ 
+ <Directory "/usr/local/www/apache22/data">
+     Options FollowSymLinks
+ </Directory>
+
+* 起動 [#d43cb30d]
+特に問題が無ければ起動出来ると思います。
+
+ # /usr/local/etc/rc.d/apache22 start

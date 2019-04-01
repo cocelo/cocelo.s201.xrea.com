@@ -1,0 +1,7 @@
+* カーネルメモリのページプールを物理メモリに置く [#m4def2f1]
+
+#contents
+
+** Entry [#p7cb4fc1]
+ [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SessionManager\MemoryManagement]
+ "DisablePagingExecutive"=1

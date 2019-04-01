@@ -1,0 +1,23 @@
+#contents
+
+* Main [#n3914490]
+現行メイン PC スペック。
+
+- [[Current Main PC>About/PC/Current]]
+
+* Note [#f8ae3112]
+通常使用しているノートパソコンのスペック。
+
+- [[HP Pavilion dv6a (NT589AV)>About/PC/HP Pavilion dv6a (NT589AV)]]
+
+* Other [#u50c6750]
+その他の PC スペック。
+
+- [[富士通 FMV-DESKPOWER C18SA>About/PC/FMV-DESKPOWER C18SA]]
+- [[富士通 FMV-BIBLO NE3/45LR>About/PC/FMV-BIBLO NE3/45LR]]
+- [[SOTEC WinBook WV750>About/PC/SOTEC WinBook WV750]]
+
+* Server [#x5cd02d8]
+サーバ PC スペック。
+
+- [[自作 Server No.001>About/PC/Server No.001]]

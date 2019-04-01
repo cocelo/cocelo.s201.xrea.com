@@ -1,0 +1,6 @@
+* SOTEC WinBook WV750 [#i1f7d85c]
+
+#contents
+
+** Link [#u8c82842]
+[[WinBook WV750 : 製品仕様 | SOTEC:http://support.sotec.jp/pds/spec_list.asp?pc=0300290000004]]

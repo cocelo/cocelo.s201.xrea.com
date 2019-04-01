@@ -1,0 +1,7 @@
+* XUL [#q3e83b21]
+XUL のメモ。
+
+#contents
+
+** Link [#o5786017]
+[[XULアプリケーション開発への誘い:http://piro.sakura.ne.jp/appendix/archives/xul/01-01.html]]

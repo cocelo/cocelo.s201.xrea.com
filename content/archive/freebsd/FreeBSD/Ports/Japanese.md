@@ -1,0 +1,12 @@
++++
+title = "[PukiWiki:freebsd] FreeBSD/Ports/Japanese"
+date = "2008-10-16T04:12:08Z"
++++
+
+
+# 日本語関連ソフトウェアの導入  {#g9aea0b6}
+FreeBSD で日本語を扱う場合、別途 Ports からソフトウェアを導入する必要があります。
+ここではそういった日本語を扱う際に必要になるソフトウェアの導入方法等を解説しています。
+
+# コンテンツ一覧  {#m761436b}
+#ls2(FreeBSD/Ports/Japanese/,title)

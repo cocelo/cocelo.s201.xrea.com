@@ -1,0 +1,97 @@
+* OpenLDAP Memo [#d06d2b24]
+
+#contents
+
+** Link [#r92c9408]
+- [[OpenLDAP, Title:http://www.openldap.org/]]
+- [[OpenLDAP Information:http://www5f.biglobe.ne.jp/~inachi/openldap/]]
+- [[【FreeBSD 5.3】OpenLDAP の設定:http://www.abk.nu/~nabe/document/openldap.htm]]
+- [[【FreeBSD 5.3】Samba 3.x + OpenLDAP による PDC の設定:http://www.abk.nu/~nabe/document/samba3.htm]]
+- [[OpenLDAPのインストール:http://www.softbreeze.jp/contents/freebsd/openldap.html]]
+- [[openldap on FreeBSD at [m.l.k.c : v.5]:http://www.pnkx.com/wp/2007/05/20/openldap-on-freebsd/]]
+
+** Memo [#f33b7707]
+とりあえず必要最低限の設定。~
+動くには動くけど PAM , Samba , Postfix , Dovecot , etc ... と連携する場合にはその都度見直さないといけない。 ( 当たり前と言えば当たり前。~
+突っ込めばセキュリティもボロボロだし。
+
+** Install [#x86e1556]
+ # portinstall net/openldap23-server
+
+ The OpenLDAP server package has been successfully installed.
+ 
+ In order to run the LDAP server, you need to edit
+   /usr/local/etc/openldap/slapd.conf
+ to suit your needs and add the following lines to /etc/rc.conf:
+   slapd_enable="YES"
+   slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap://0.0.0.0/"'
+   slapd_sockets="/var/run/openldap/ldapi"
+ 
+ Then start the server with
+   /usr/local/etc/rc.d/slapd start
+ or reboot.
+ 
+ Try `man slapd' and the online manual at
+   http://www.OpenLDAP.org/doc/
+ for more information.
+ 
+ slapd runs under a non-privileged user id (by default `ldap'),
+ see /usr/local/etc/rc.d/slapd for more information.
+
+** Setting [#hdcecbf9]
+
+*** パスワード設定 [#qdd450e2]
+コピペじゃダメですよ。
+ # slappasswd -s passwd
+ {SSHA}I8H1uziqjgevWfKM4JG9V0M29FY6MkJp
+
+*** slapd.conf [#fad69e6e]
+コピペじゃ（略
+ # vi /usr/local/etc/openldap/slapd.conf
+
+ suffix	"dc=clx,dc=ath,dc=cx"
+ rootdn	"cn=ldaproot,dc=clx,dc=ath,dc=cx"
+ 
+ rootpw	{SSHA}I8H1uziqjgevWfKM4JG9V0M29FY6MkJp
+
+*** ldap.conf [#z811e07c]
+ # vi /usr/local/etc/openldap/ldap.conf
+
+ BASE	dc=clx,dc=ath,dc=cx
+ URI	ldap://ldap.clx.ath.cx
+
+*** rc.conf [#m5a95e81]
+ # vi /etc/rc.conf
+
+ slapd_enable="YES"
+ slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap:/// ldaps:///"'
+ slapd_sockets="/var/run/openldap/ldapi"
+
+*** エラーメッセージ対策 [#a8882579]
+ bdb_db_open: DB_CONFIG for suffix dc=clx,dc=ath,dc=cx has changed. Performing database recovery to activate new settings.
+
+ # cp /usr/local/etc/openldap/DB_CONFIG.example /var/db/openldap-data/DB_CONFIG
+
+*** 起動 [#aa181d25]
+ # /usr/local/etc/rc.d/slapd start
+
+*** 初期エントリ追加 [#s52dd465]
+ # vi clx.ath.cx.ldif
+
+ dn: dc=clx,dc=ath,dc=cx
+ objectclass: dcObject
+ objectclass: organization
+ o: Cocelo Style
+ dc: clx
+ 
+ dn: cn=ldaproot,dc=clx,dc=ath,dc=cx
+ objectclass: organizationalRole
+ cn: ldaproot
+
+ # ldapadd -x -D "cn=ldaproot,dc=clx,dc=ath,dc=cx" -W -f clx.ath.cx.ldif
+
+** データリセット [#k21774a2]
+ # /usr/local/etc/rc.d/slapd stop
+ # rm -fr /var/db/openldap-data/*
+ # cp /usr/local/etc/openldap/DB_CONFIG.example /var/db/openldap-data/DB_CONFIG
+ # /usr/local/etc/rc.d/slapd start

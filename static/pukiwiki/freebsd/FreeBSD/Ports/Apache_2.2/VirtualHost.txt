@@ -1,0 +1,149 @@
+#contents
+
+* VirtualHost の導入 [#ae395f05]
+Apache では UserDir という、ユーザーディレクトリに存在するファイルを表示させる昨日がありますが、こちらはその発展系のようなものです。
+例えば www.example.com というサイトを運営している場合、もうひとつ test.example.org というサイトを運営出来る、と言う感じです。
+
+* httpd.conf の Include を有効にする [#ycb77b9b]
+[[SSL>FreeBSD/Ports/Apache 2.2/SSL]] の時のように、 httpd.conf の Include を有効にします。
+
+ # vi /usr/local/etc/apache22/httpd.conf
+
+ # Virtual hosts
+ Include etc/apache22/extra/httpd-vhosts.conf
+
+* サンプル用のディレクティブを削除する [#u1be81aa]
+VirtualHost にはネームベースと IP ベースがありますが、今回はネームベースの VirtualHost を採用します。
+設定ファイルを開くとサンプル用の VirtualHost ディレクティブが記述されていますが、まずこれをコメントアウトするか、削除します。
+
+ # vi /usr/local/etc/apache22/extra/httpd-vhosts.conf
+
+#pre{{
+#
+# Use name-based virtual hosting.
+#
+NameVirtualHost *:80
+
+#
+# VirtualHost example:
+# Almost any Apache directive may go into a VirtualHost container.
+# The first VirtualHost section is used for all requests that do not
+# match a ServerName or ServerAlias in any <VirtualHost> block.
+#
+#<VirtualHost *:80>
+#    ServerAdmin webmaster@dummy-host.example.com
+#    DocumentRoot "/www/docs/dummy-host.example.com"
+#    ServerName dummy-host.example.com
+#    ServerAlias www.dummy-host.example.com
+#    ErrorLog "/var/log/dummy-host.example.com-error_log"
+#    CustomLog "/var/log/dummy-host.example.com-access_log common"
+#</VirtualHost>
+#
+#<VirtualHost *:80>
+#    ServerAdmin webmaster@dummy-host2.example.com
+#    DocumentRoot "/www/docs/dummy-host2.example.com"
+#    ServerName dummy-host2.example.com
+#    ErrorLog "/var/log/dummy-host2.example.com-error_log"
+#    CustomLog "/var/log/dummy-host2.example.com-access_log common"
+#</VirtualHost>
+#
+}}
+
+* IP アドレスでのアクセスを拒否する [#nacffcad]
+IP アドレスでのアクセス ( http://IP/ 等 ) を拒否する設定を行います。
+
+ #
+ # Block IP Addresses Accsess
+ #
+ <VirtualHost *:80>
+     ServerAdmin any
+     ServerName any
+     DocumentRoot /tmp
+ </VirtualHost>
+
+* ホストでのアクセスを許可する [#d8ec38ff]
+上記の設定を行ってしまうと全てのアクセスが拒否されてしまうので、 FQDN でのアクセス ( http://www.example.com/ 等 ) を許可する設定を行います。
+
+ # vi /usr/local/etc/apache22/Includes/www.example.com.conf
+
+#pre{{
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName www.example.com
+    DocumentRoot "/usr/local/www/www.example.com/"
+    <Directory "/usr/local/www/www.example.com">
+        Options None
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+}}
+
+* 一部デフォルトの設定を無効にする [#q87eb51a]
+上記で IP アドレスでのアクセスを拒否した場合は ServerAdmin, ServerName, DocumentRoot, Directory ディレクティブを無効にします。
+
+ # vi /usr/jails/www.air-ro.mydns.jp/usr/local/etc/apache22/httpd.conf
+
+#pre{{
+#
+# ServerAdmin: Your address, where problems with the server should be
+# e-mailed.  This address appears on some server-generated pages, such
+# as error documents.  e.g. admin@your-domain.com
+#
+#ServerAdmin webmaster@example.com
+
+#
+# ServerName gives the name and port that the server uses to identify itself.
+# This can often be determined automatically, but we recommend you specify
+# it explicitly to prevent problems during startup.
+#
+# If your host doesn't have a registered DNS name, enter its IP address here.
+#
+#ServerName www.example.com:80
+
+#
+# DocumentRoot: The directory out of which you will serve your
+# documents. By default, all requests are taken from this directory, but
+# symbolic links and aliases may be used to point to other locations.
+#
+#DocumentRoot "/usr/local/www/apache22/data"
+
+#
+# This should be changed to whatever you set DocumentRoot to.
+#
+#<Directory "/usr/local/www/apache22/data">
+    #
+    # Possible values for the Options directive are "None", "All",
+    # or any combination of:
+    #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+    #
+    # Note that "MultiViews" must be named *explicitly* --- "Options All"
+    # doesn't give it to you.
+    #
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.2/mod/core.html#options
+    # for more information.
+    #
+    #Options Indexes FollowSymLinks
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be "All", "None", or any combination of the keywords:
+    #   Options FileInfo AuthConfig Limit
+    #
+    #AllowOverride None
+
+    #
+    # Controls who can get stuff from this server.
+    #
+    #Order allow,deny
+    #Allow from all
+
+#</Directory>
+}}
+
+* VirtualHost を有効にする [#lea885ad]
+VirtualHost を有効にする為、 Apache を再起動します。
+
+ # /usr/local/etc/rc.d/apache22 restart

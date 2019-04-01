@@ -1,0 +1,16 @@
+#contents
+
+* TCPIP.SYS [#m50eabbc]
+[[TCPIP.SYS>Windows/XP/Patch/TCPIP.SYS]]
+
+* SETUPAPI.DLL [#f8543d25]
+[[SETUPAPI.DLL>Windows/XP/Patch/SETUPAPI.DLL]]
+
+* sfc_os.dll [#ie22887b]
+[[sfc_os.dll>Windows/XP/Patch/sfc_os.dll]]
+
+* uxtheme.dll [#ue7c1a82]
+[[uxtheme.dll>Windows/XP/Patch/uxtheme.dll]]
+
+* Resource Hacker [#gb76b7a7]
+[[Resource Hacker>Windows/XP/Patch/Resource Hacker]]

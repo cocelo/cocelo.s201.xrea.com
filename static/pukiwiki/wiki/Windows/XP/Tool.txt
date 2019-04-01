@@ -1,0 +1,23 @@
+#contents
+
+* ブラウザ [#r80a019d]
+- [[Firefox>Windows/XP/Tool/Firefox]]
+- [[Sleipnir>Windows/XP/Tool/Sleipnir]]
+
+* 2ch [#f3101dce]
+- [[Jane Style>Windows/XP/Tool/Jane Style]]
+
+* システム情報 [#rae22875]
+- [[CPUID>Windows/XP/Tool/CPUID]]
+
+* 動画プレイヤー [#i476dd4e]
+- [[Media Player Classic>Windows/XP/Tool/Media Player Classic]]
+
+* 動画コーデック [#a832d047]
+- ffdshow
+
+* 音声コーデック [#xe01a672]
+- ffdshow
+
+* Explorerシェル拡張 [#se446c07]
+- [[Open Command Prompt Shell Extension>http://code.kliu.org/cmdopen/]]

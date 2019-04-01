@@ -1,0 +1,24 @@
+#contents
+
+* Tips [#le7e4a87]
+[[フォルダ構成>Windows/XP/Integration/HFSLIP/Folder]]
+
+* Hotfix Download List [#vd8e891c]
+[[Download List>Windows/XP/Integration/HFSLIP/List]]
+
+* Link [#i0edf2de]
+
+** Official [#z63e0cfe]
+[[TommyP's HFSLIP:http://hfslip.org/]]
+
+** MSFN Forum [#zd0c6415]
+[[MSFN Forums -> HFSLIP:http://www.msfn.org/board/index.php?showforum=129]]
+
+** 2ch [#ae7ae5fe]
+[[HFSLIP Part1:http://pc11.2ch.net/test/read.cgi/win/1154003862/l50]]~
+[[HFSLIP Part2:http://pc11.2ch.net/test/read.cgi/win/1173156527/l50]]
+
+** Other Site [#hf6a7934]
+[[HFSLIP - はじめに:http://www.hrt.dis.titech.ac.jp/~sera/hfslip/introduction.html]]~
+[[nLiteの役に立たない説明書:http://vols.nobody.jp/hfslip.html]]~
+[[Windows 2000 HFSLIP memo:http://ecl.info.kindai.ac.jp/~sumi/memo.html]]

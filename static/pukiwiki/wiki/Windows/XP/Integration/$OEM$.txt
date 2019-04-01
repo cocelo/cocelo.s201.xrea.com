@@ -1,0 +1,18 @@
+* $OEM$ フォルダ [#q429ce2c]
+$OEM$ フォルダについて
+
+#contents
+
+** View [#wca8e823]
+- I386
+- $OEM$
+-- $1
+-- システムドライブのルート ( C:\ )
+-- $$
+-- WINDOWS フォルダ ( C:\WINDOWS )
+--- System32
+--- System32 フォルダ ( C:\WINDOWS\System32 )
+-- $Docs
+-- Documents and Settings フォルダ ( C:\Documents and Settings )
+-- $Progs
+-- Program Files フォルダ ( C:\Program Files )

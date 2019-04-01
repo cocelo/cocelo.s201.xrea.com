@@ -1,0 +1,205 @@
+#contents
+
+* Mother Board [#dfae160c]
+[[ASUSTeK P5WD2 Premium>http://www.unitycorp.co.jp/backup_unity/products/775/detail/p5wd2/p5wd2-pre.html]]
+[[ASUSTeK Computer Inc.:http://jp.asus.com/products.aspx?l1=3&l2=11&l3=184&l4=0&model=493&modelmenu=1]]
+
+** Chipset [#h4db0f08]
+[[インテル® 955X Express チップセット:http://www.intel.co.jp/jp/products/chipsets/955x/index.htm]]
+
+*** North Bridge [#jdd7727d]
+Intel 82955X
+
+*** South Bridge [#s68c0122]
+Intel 82801 GB/GR ( ICH7/R )
+
+** Lan [#s45c734a]
+[[Intel 82573L Gigabit Ethernet Controller:http://www.intel.com/products/ethernet/resource.htm#s1=all&s2=82573E/L/V&s3=all]]
+[[ダウンロード・ソフトウェア / ドライバ / ユーティリティ・フィルタ:http://downloadcenter.intel.com/Product_Filter.aspx?ProductID=2198&lang=jpn]]
+Marvell Yukon 88E8001
+
+** Audio [#xfee502c]
+[[Realtek ALC882:http://www.realtek.com.tw/products/productsView.aspx?Langid=1&PFid=28&Level=5&Conn=4&ProdID=43]]
+
+** I/O [#z43a6ba0]
+
+*** IDE [#b2a1f9d4]
+
+*** SATA [#sdd66de6]
+[[Silicon Image - Product - SiI3132 - PCI Express (1x) to 2 Port SATA300:http://www.siliconimage.com/products/product.aspx?id=32]]
+
+* CPU [#mae27af9]
+Intel(R) Pentium(R) D CPU 2.66GHz ( Smithfield )
+
+* Memory [#u4c71ba3]
+Bulk DDR2 1GB * 4
+
+* Video [#q7fe5866]
+GALAXY GeForce7600GS
+
+* Hard Disk [#s4f7d8e6]
+SAMSUNG SP2504C * 3
+WDC WD2500KS-00MJB0 * 1
+
+* CD/DVD [#w323ede4]
+[[LG Japan :: GSA-H10N, GSA-H10N:http://jp.lge.com/prodmodeldetail.do?actType=search&page=1&modelCategoryId=030201&categoryId=030201&parentId=0302&modelCodeDisplay=GSA-H10N&model=4]]
+
+* Floppy [#lbac93d0]
+
+* Case [#j0808f52]
+
+* CrystalCPUID [#h5b2f2a3]
+
+#pre{{
+----------------------------------------------------------------
+CrystalCPUID 4.15.2.451 (C) 2002-2008 hiyohiyo
+                    Crystal Dew World : http://crystalmark.info/
+----------------------------------------------------------------
+
+             OS : Windows XP Professional SP3 [ 5.1 Build 2600 ]
+           Date : 2008/12/05 16:04:38
+
+       CPU Name : Intel Pentium D (Smithfield)
+  Vendor String : GenuineIntel
+    Name String : Intel(R) Pentium(R) D  CPU 2.66GHz
+   Architecture : x86
+   Process Rule : 90 nm
+       Platform : LGA775 [4]
+       CPU Type : Original OEM processor [0]
+ Number (Total) : 2
+  Physical Core : 2
+         Family : Fh
+          Model : 4h
+       Stepping : 7h
+           APIC : 00h
+   Microcode ID : 03h
+        Feature : MMX SSE SSE2 SSE3 Intel 64
+PowerManagement :
+
+                    Current        Original
+          Clock : 2676.17 MHz     2666.67 MHz
+   System Clock :  133.81 MHz      133.33 MHz
+     System Bus :  535.23 MHz      533.33 MHz
+     Multiplier :   20.00           20.00
+      Data Rate :    QDR
+     Over Clock :    0.36 %
+
+     L1 T-Cache :   12 KuOps
+     L1 D-Cache :   16 KB
+       L2 Cache : 1024 KB [Full:2676.17 MHz]
+         Memory : 3072 MB
+
+       CPUID    : EAX      EBX      ECX      EDX
+       ----------------------------------------------
+       00000000 : 00000005 756E6547 6C65746E 49656E69
+       00000001 : 00000F47 00020800 0000651D BFEBFBFF
+       00000002 : 605B5101 00000000 00000000 007C7040
+       00000003 : 00000000 00000000 00000000 00000000
+       00000004 : 04000121 01C0003F 0000001F 00000000
+       00000005 : 00000040 00000040 00000000 00000000
+       80000000 : 80000008 00000000 00000000 00000000
+       80000001 : 00000000 00000000 00000001 20000000
+       80000002 : 20202020 20202020 20202020 746E4920
+       80000003 : 52286C65 65502029 7569746E 2952286D
+       80000004 : 20204420 20555043 36362E32 007A4847
+       80000005 : 00000000 00000000 00000000 00000000
+       80000006 : 00000000 00000000 04006040 00000000
+       80000007 : 00000000 00000000 00000000 00000000
+       80000008 : 00003024 00000000 00000000 00000000
+
+       MSR      : EAX1     EDX1     EAX2     EDX2
+                : 00000000 00000000 14110614 00000000
+       QPF      : 2676.170000 MHz
+
+----------------------------------------------------------------
+ Chipset Information
+----------------------------------------------------------------
+        Chipset : Intel 955X Express
+   North Bridge : [8086:2774.81] Intel 82955X
+   South Bridge : [8086:27B8.01] Intel 82801GB/GR (ICH7/R)
+     Video Chip : [10DE:0392.A1] NVIDIA GeForce 7600 GS
+
+----------------------------------------------------------------
+ BIOS Information by WMI (Windows Management Interface)
+----------------------------------------------------------------
+    BIOS Vendor : American Megatrends Inc.
+   BIOS Caption : BIOS Date: 03/31/06 13:31:43 Ver: 08.00.10
+   BIOS Version : A M I  - 3000631
+      BIOS Date :
+SM BIOS Caption : 0709    
+SM BIOS Version : 2.3
+  Mother Vendor : ASUSTeK Computer INC.
+ Mother Product : P5WD2-Premium
+ Mother Version : Rev 1.xx
+  System Vendor : System manufacturer
+   System Model : System Product Name
+
+----------------------------------------------------------------
+ System Information by DMI (Desktop Management Interface)
+----------------------------------------------------------------
+SM BIOS Version : 2.3
+    BIOS Vendor : American Megatrends Inc.
+   BIOS Version : 0709
+      BIOS Date : 03/31/2006
+  BIOS ROM Size : 1024 KB
+  Mother Vendor : ASUSTeK Computer INC.
+ Mother Product : P5WD2-Premium
+ Mother Version : Rev 1.xx
+     CPU Socket : Socket 775
+     CPU Vendor : Intel
+    CPU Version : Intel(R) Pentium(R) D  CPU 2.66GHz
+  Current Clock : 2666 MHz
+ External Clock : 133 MHz
+      Max Clock : 3800 MHz
+
+----------------------------------------------------------------
+ PCI Device Information
+----------------------------------------------------------------
+No Bus Dev Fnc VendorDeviceRev Class   DeviceType
+ 0   0   0   0 8086h:2774h.81h 060000h Host Bridge
+ 1   0   1   0 8086h:2775h.81h 060400h PCI to PCI Bridge
+ 2   0  27   0 8086h:27D8h.01h 040300h High-Definition Audio Device
+ 3   0  28   0 8086h:27D0h.01h 060400h PCI to PCI Bridge
+ 4   0  28   4 8086h:27E0h.01h 060400h PCI to PCI Bridge
+ 5   0  28   5 8086h:27E2h.01h 060400h PCI to PCI Bridge
+ 6   0  29   0 8086h:27C8h.01h 0C0300h UHCI USB Controller
+ 7   0  29   1 8086h:27C9h.01h 0C0300h UHCI USB Controller
+ 8   0  29   2 8086h:27CAh.01h 0C0300h UHCI USB Controller
+ 9   0  29   3 8086h:27CBh.01h 0C0300h UHCI USB Controller
+10   0  29   7 8086h:27CCh.01h 0C0320h EHCI USB Controller
+11   0  30   0 8086h:244Eh.E1h 060401h PCI to PCI Bridge (SSD)
+12   0  31   0 8086h:27B8h.01h 060100h ISA Bridge
+13   0  31   1 8086h:27DFh.01h 01018Ah Bus Master IDE controller 
+14   0  31   2 8086h:27C0h.01h 01018Fh Serial ATA Controller
+15   0  31   3 8086h:27DAh.01h 0C0500h SMBus Contoller
+16   1   3   0 104Ch:8023h.00h 0C0010h OHCI IEEE1394 Controller
+17   1   4   0 1283h:8211h.11h 018000h Other Mass Storage Controller
+18   1   5   0 11ABh:4320h.13h 020000h Ethernet Controller
+19   2   0   0 1095h:3132h.01h 018000h Other Mass Storage Controller
+20   3   0   0 8086h:109Ah.00h 020000h Ethernet Controller
+21   5   0   0 10DEh:0392h.A1h 030000h VGA Compatible Controller
+
+No DeviceName
+ 0 Intel 82955X Memory Controller Hub
+ 1 Intel 82955X PCI Express Root Port
+ 2 Intel 82801G (ICH7 Family) High Definition Audio Controller
+ 3 Intel 82801G (ICH7 Family) PCI Express Port 1
+ 4 Intel 82801GR/GH/GHM (ICH7 Family) PCI Express Port 5
+ 5 Intel 82801GR/GH/GHM (ICH7 Family) PCI Express Port 6
+ 6 Intel 82801G (ICH7 Family) USB UHCI Controller #1
+ 7 Intel 82801G (ICH7 Family) USB UHCI Controller #2
+ 8 Intel 82801G (ICH7 Family) USB UHCI Controller #3
+ 9 Intel 82801G (ICH7 Family) USB UHCI Controller #4
+10 Intel 82801G (ICH7 Family) USB2 EHCI Controller
+11 Intel 82801 PCI Bridge
+12 Intel 82801GB/GR (ICH7 Family) LPC Interface Bridge
+13 Intel 82801G (ICH7 Family) IDE Controller
+14 Intel 82801GB/GR/GH (ICH7 Family) SATA IDE Controller
+15 Intel 82801G (ICH7 Family) SMBus Controller
+16 Texas TSB43AB22/A IEEE-1394a-2000 Controller (PHY/Link)
+17 Integrated Technology Express ITE 8211F Single Channel UDMA 133
+18 Galileo Technology Ltd. 88E8001 Gigabit Ethernet Controller
+19 CMD SiI 3132 Serial ATA Raid II Controller
+20 Intel 82573L Gigabit Ethernet Controller
+21 NVIDIA G70 [GeForce 7600 GS]
+}}

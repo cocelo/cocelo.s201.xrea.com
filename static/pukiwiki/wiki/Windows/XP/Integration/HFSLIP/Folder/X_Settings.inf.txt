@@ -1,0 +1,34 @@
+ 
+ [Version]
+ Signature=$Windows NT$
+ 
+ [Optional Components]
+ MyThemesRegTweaks
+ 
+ [DefaultInstall]
+ OptionDesc ="Registry Entries"
+ Tip        ="Registry Entries"
+ Modes      =0,1,2,3
+ AddReg     =REGEntries.AddReg
+ DelReg     =REGEntries.DelReg
+ 
+ [MyRegTweaks]
+ OptionDesc ="Registry Entries"
+ Tip        ="Registry Entries"
+ Modes      =0,1,2,3
+ AddReg     =REGEntries.AddReg
+ DelReg     =REGEntries.DelReg
+ 
+ [REGEntries.AddReg]
+ ; デフォルトテーマを VistaCG に
+ ; 利いていないっぽい？
+ HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes","InstallTheme",0,"%%SystemRoot%%\Resources\Themes\VistaCG.theme"
+ HKCU,"Software\Microsoft\Windows\CurrentVersion\Themes\LastTheme","ThemeFile",0x00020000,"%%SystemRoot%%\Resources\Themes\VistaCG.theme"
+ HKCU,"Software\Microsoft\Windows\CurrentVersion\Themes\LastTheme","Wallpaper",0x00020000,"%%SystemRoot%%\Web\Wallpaper\Semtex_Lace_Lime_1680x1050.jpg"
+ ; 「従来の Windows フォルダを使う」のチェックをON
+ ; 利いていないっぽい？
+ HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","WebView",0x00010001,0x00000000
+ ; 「簡易ファイルの共有」機能を無効に
+ HKLM,"SYSTEM\CurrentControlSet\Control\LSA","ForceGuest",0x00010001,0x00000000
+ 
+ ;HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders"

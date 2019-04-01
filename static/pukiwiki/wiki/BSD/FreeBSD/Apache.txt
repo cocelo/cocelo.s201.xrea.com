@@ -1,0 +1,37 @@
+* Apache Memo [#t860a5de]
+
+#contents
+
+** Link [#re8ec2f0]
+[[FreeBSD Notes - apache20からapache22のportに移行した:http://www.xdelta.net/blog/FreeBSD/2006/05/04/p183]]
+
+** Memo [#sd7e3ccf]
+-Cronolog ディレクトリを月日別に掘って分割出来たりする。~
+[[Cronolog:http://cronolog.org/]]~
+[[sysutils/cronolog:http://www.freebsd.org/cgi/cvsweb.cgi/ports/sysutils/cronolog/]]
+
+-Visitors ログ解析。かなり高速らしい。~
+[[Visitors - fast web log analyzer:http://www.hping.org/visitors/]]~
+[[www/visitors:http://www.freebsd.org/cgi/cvsweb.cgi/ports/www/visitors/]]
+
+** First Step [#uf46b9c2]
+事前に [[Kernel>BSD/FreeBSD/Kernel]] と [[pkgtools.conf>BSD/FreeBSD/portupgrade#ue11c464]] の設定をしておくこと。
+
+** Install [#caf54958]
+ # portinstall converters/libiconv
+ # portinstall devel/apr
+ # portinstall www/apache22
+ # rehash
+
+ # vi /etc/rc.conf
+
+ apache22_enable="YES"
+ apache22_http_accept_enable="YES"
+
+ # /usr/local/etc/rc.d/apache22 start
+
+** Setting [#g338a5c3]
+オリジナルの設定ファイルをコピーする。
+ # cp -R /usr/local/etc/apache22 /usr/local/etc/apache22.orig
+差分を取る。
+ # diff -urN /usr/local/etc/apache22.orig /usr/local/etc/apache22 > test.diff

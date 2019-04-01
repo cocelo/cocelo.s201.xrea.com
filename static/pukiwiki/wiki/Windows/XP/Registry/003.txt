@@ -1,0 +1,6 @@
+* システムの環境変数 [#n7668156]
+
+#contents
+
+**Entry [#b71f1dba]
+ [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment]

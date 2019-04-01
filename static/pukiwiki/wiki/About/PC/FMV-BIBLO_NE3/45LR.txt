@@ -1,0 +1,15 @@
+* 富士通 FMV-BIBLO NE3/45LR[#e5d397ad]
+
+#contents
+
+** CPU [#yda31208]
+モバイルIntel(R)CeleronTMプロセッサ-450MHz
+
+** MEM [#n49e348f]
+192MB
+
+** memo [#k9c47f02]
+LAN カードに BUFFALO LPC2-CLT を搭載しているので Linux を使う際には pcnet_cs ドライバを読み込む。
+
+** Link [#cb7d8ae5]
+[[富士通 FMV-BIBLO NE3/45LR:http://www.fmworld.net/product/former/bi0002/index.html]]

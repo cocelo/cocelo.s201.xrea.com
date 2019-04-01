@@ -1,0 +1,15 @@
+= doctype html
+html
+  head
+    = include partials/header.html .
+  body
+    = include partials/xrea_ad.html .
+    main
+      section
+        div id="main"
+          ul
+            {{ range .Data.Pages.ByTitle }}
+            li
+              a href="{{ .Permalink }}" {{ .Title }}
+            {{ end }}
+    = include partials/footer.html .

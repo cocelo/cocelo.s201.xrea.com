@@ -1,0 +1,12 @@
+#contents
+
+* Debian [#z4e874a3]
+Debian のメモとかリンクとか。
+[[Debian>Linux/Debian]]
+
+* Gentoo Linux [#o648ab0e]
+Gentoo Linux のメモとかリンクとか。
+[[Gentoo Linux>Linux/Gentoo Linux]]
+
+* coLinux [#xdea3ae0]
+[[coLinux>Linux/coLinux]]

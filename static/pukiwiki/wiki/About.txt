@@ -1,0 +1,17 @@
+#contents
+
+* Mail [#nbf154a5]
+何か御座いましたら。
+&ref(gmail.png,nolink,メールアドレス);
+
+* PC Spec [#x4f8f05d]
+所持 PC スペック。
+[[PC Spec>About/PC]]
+
+* Link [#qa7272d6]
+[[Hatena Diary:http://d.hatena.ne.jp/cocelo/]]
+[[Hatena Bookmark:http://b.hatena.ne.jp/cocelo/]]
+
+* Pukiwiki [#cfd95a2c]
+XREA 無料サービスで Pukiwiki を使うメモ。
+[[XREA in Pukiwiki>About/Pukiwiki]]

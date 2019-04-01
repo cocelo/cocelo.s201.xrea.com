@@ -1,0 +1,10 @@
+#contents
+
+* WSH [#t9c48f66]
+[[WSH>Programing/WSH]]
+Windows Script Hostingのメモ。
+Windows 2000以降なら標準搭載な上にCOMが使えたりするので気合を入れればそれなりのアプリを作れる。
+
+* XUL [#o2e5bacf]
+[[XUL>Programing/XUL]]
+Firefox などで使われている XUL のメモ。

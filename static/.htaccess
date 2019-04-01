@@ -1,0 +1,48 @@
+LayoutIgnoreURI *
+
+RewriteEngine On
+
+# PukiWiki時代のリンクを回収
+# あんまり階層深いのは放置・・・
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} ^$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/FrontPage/? [R=307,L]
+
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} !\%2[fF]
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/%1/? [R=307,L]
+
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} ^(?:(\w+)(?:\%2[fF])(\w+))$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/%1/%2/? [R=307,L]
+
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} ^(?:(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+))$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/%1/%2/%3/? [R=307,L]
+
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} ^(?:(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+))$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/%1/%2/%3/%4/? [R=307,L]
+
+RewriteCond %{REQUEST_URI} ^/(?:freebsd|wiki)/.*$
+RewriteCond %{QUERY_STRING} ^(?:(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+)(?:\%2[fF])(\w+))$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/%1/%2/%3/%4/%5/? [R=307,L]
+
+# Apache 2.2ページ救済
+RewriteCond %{QUERY_STRING} ^FreeBSD\%2FPorts\%2FApache\%202.2$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/FreeBSD/Ports/Apache_2.2/? [R=307,L]
+
+RewriteCond %{QUERY_STRING} ^FreeBSD\%2FPorts\%2FApache\%202.2\%2F(.*)$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/FreeBSD/Ports/Apache_2.2/%1/? [R=307,L]
+
+# OpenLDAPページ救済
+RewriteCond %{QUERY_STRING} ^FreeBSD\%2FPorts\%2FOpenLDAP\%2FLDAP\%20Authentication$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/FreeBSD/Ports/OpenLDAP/LDAP_Authentication/? [R=307,L]
+
+# coLinux->Ubuntu 9.04ページ救済
+RewriteCond %{QUERY_STRING} ^Linux%2FcoLinux%2FUbuntu\%209.04\%28Jaunty\%20Jackalope\%29$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/Linux/coLinux/Ubuntu_9.04/? [R=307,L]
+
+RewriteCond %{QUERY_STRING} ^Linux%2FcoLinux%2FUbuntu\%209.04\%28Jaunty\%20Jackalope\%29\%2F(.*)$
+RewriteRule ^(freebsd|wiki).*$ /archive/$1/Linux/coLinux/Ubuntu_9.04/%1/? [R=307,L]

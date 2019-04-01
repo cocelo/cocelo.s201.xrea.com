@@ -1,0 +1,45 @@
+* Integration [#a2ee2929]
+Windows XP インストール CD に SP2 Hotfix Driver App を統合する。
+
+#contents
+
+** Service Pack 2 [#x2421a56]
+[[Service Pack 2>Windows/XP/Integration/Service Pack 2]]~
+Service Pack 2 を統合する。
+
+** Hotfix [#z874a9d7]
+[[Hotfix>Windows/XP/Integration/Hotfix]]~
+Hotfix を統合する。
+
+** Driver [#zc3c8cfd]
+[[Driver>Windows/XP/Integration/Driver]]~
+ドライバをサイレントインストール。
+
+** Tips [#z88a00ce]
+[[CD Label>Windows/XP/Integration/CD Label]]~
+Windows XP Service Pack 2 の CD Label 。
+
+[[$OEM$ フォルダ>Windows/XP/Integration/$OEM$]]~
+$OEM$ フォルダについて。
+
+[[WINNT.SIF>Windows/XP/Integration/WINNT.SIF]]~
+プロダクト ID の入力などを自動化する。
+
+[[Registry>Windows/XP/Integration/Registry]]~
+レジストリを変更する。
+
+** Tool [#f0742065]
+統合作業に便利なツール類。
+
+*** Windows Updates Downloader [#t85c2f92]
+[[Windows Updates Downloader>Windows/XP/Integration/Windows Updates Downloader]]~
+Hotfix をダウンロード出来るソフトウェア。
+
+*** HFSLIP [#s838bc7b]
+[[HFSLIP>Windows/XP/Integration/HFSLIP]]~
+Hotfix をダイレクト統合出来るソフトウェア。
+
+** Link [#p108e411]
+[[WindowsプリインストールPCでServicePack適用済みブータブルCDを作ろう:http://www.geocities.co.jp/SiliconValley-Cupertino/3686/instcd.html]]~
+[[作るにあたって、絶対に必要なもの :http://74part4.nobody.jp/pe/kankyo.htm]]~
+[[nLiteの役に立たない説明書:http://vols.nobody.jp/]]

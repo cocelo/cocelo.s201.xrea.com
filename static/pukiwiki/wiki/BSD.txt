@@ -1,0 +1,8 @@
+* BSD [#k1bfed8c]
+BSD 関連。
+
+#contents
+
+** FreeBSD [#b069e531]
+FreeBSD のメモ。~
+[[FreeBSD>BSD/FreeBSD]]

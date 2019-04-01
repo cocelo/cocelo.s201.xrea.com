@@ -1,0 +1,7 @@
+* ワトソン博士の無効化 [#u06e31b7]
+
+#contents
+
+** Entry [#h4947554]
+ [HKEY_LOCAL_MACHINE\SoftWare\Microsoft\WindowsNT\CurrentVersion\AeDebug]
+ "Auto"=0

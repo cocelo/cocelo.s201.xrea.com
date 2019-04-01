@@ -1,0 +1,60 @@
+#contents
+
+* pf ( Packet Filter ) の導入 [#uf89d215]
+pf は、もともとは OpenBSD の為に開発されたファイアウォールソフトウェアです。
+現在は FreeBSD などの、 BSD 系 OS に移植が進められており、近年注目のファイアウォールソフトウェアだと言えます。
+ここでは pf を使用したファイアウォール構築の為の、前準備について説明します。
+
+* カーネル再構築 [#n7b0648c]
+私は HP の ProLiant ML115 を使っているので、同じ物を使用してる方は[[こちら>FreeBSD/Base/Kernel]]をご覧下さい。
+それ以外の方は下記の手順に従ってカーネル再構築を行ってください。
+
+** pf を有効にする為にコンフィグファイルを編集する [#s6c79236]
+まずはカーネル再構築の為にコンフィグファイルを編集します。
+
+ # cp /usr/src/sys/i386/conf/GENERIC /usr/src/sys/i386/conf/PFKERNEL
+ # vi /usr/src/sys/i386/conf/PFKERNEL
+
+ ident		GENERIC
+ ↓ ( 変更 )
+ ident		PFKERNEL
+
+ device		gif		# IPv6 and IPv4 tunneling
+ device		faith		# IPv6-to-IPv4 relaying (translation)
+ ↓ ( 追記 )
+ device		gif		# IPv6 and IPv4 tunneling
+ device		faith		# IPv6-to-IPv4 relaying (translation)
+ device		pf		# Packet filter
+ device		pflog		# Packet filter logging
+ device		pfsync		# Packet filter state table logging
+
+** 不要ファイルの削除 [#p58e30a5]
+再構築の際には、以前に buildworld などを行っている場合は /usr/obj 以下を削除する必要があります。
+ 
+ # chflags -R noschg /usr/obj/*
+ # rm -rf /usr/obj/*
+
+** 再構築 [#x95be3c7]
+ここでは -j オプションと KERNCONF オプション、後でログを閲覧出来るように tee を使用したログ出力を行います。
+
+ # make -j4 buildkernel installkernel KERNCONF=MYKERNEL |& tee ~/MakeKernel.log
+
+** 再起動 [#mf50bd7b]
+特にエラーなどが無かったら再起動します。
+再起動後は uname などで新しいカーネルが使われているかどうか調べてください。
+
+ # shutdown -r now
+
+* 有効にする [#zf58a2d9]
+pf を有効にする為に rc.conf に記述します。
+今回はルールファイルを一から作るので、 pf_rules の項目を変えました。
+
+ # vi /etc/rc.conf
+
+ pf_enable="YES"
+ pf_rules="/etc/pf.rules"
+ pflog_enable="YES"
+ pflog_logfile="/var/log/pflog"
+
+* ファイアウォールの種類 [#ud0f1603]
+ファイアウォールには利用の仕方によって、いくつかの種類に分けられます。

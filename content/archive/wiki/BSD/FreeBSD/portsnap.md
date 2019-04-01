@@ -1,0 +1,55 @@
++++
+title = "[PukiWiki:wiki] BSD/FreeBSD/portsnap"
+date = "2008-12-10T09:33:20Z"
++++
+
+# portsnap Memo  {#x2cda184}
+
+
+## Link  {#v1a1e7a4}
+- [Using Portsnap](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/portsnap.html "Using Portsnap")
+- [FreeBSD/portsnap - Taku's PukiWiki](http://taku.ath.cx/?FreeBSD%2Fportsnap "FreeBSD/portsnap - Taku's PukiWiki")
+- [BSD にくびったけ - portsnap](http://wiki.fdiary.net/BSDmad/?portsnap "BSD にくびったけ - portsnap")
+- [HRS's Web Page - The Design and Implementation of the Gracious Days](http://www.allbsd.org/%7Ehrs/diary/200601.html#d2703 "HRS's Web Page - The Design and Implementation of the Gracious Days")
+
+## Setting  {#a1dc2f33}
+
+```
+# vi /etc/portsnap.conf
+
+WORKDIR=/var/db/portsnap
+PORTSDIR=/usr/ports
+SERVERNAME=portsnap.allbsd.org
+KEYPRINT=****************************************************************
+REFUSE games
+REFUSE arabic chinese french german hebrew hungarian
+REFUSE korean polish portuguese russian ukrainian vietnamese
+REFUSE x11 x11-clocks x11-fm x11-fonts
+REFUSE x11-servers x11-themes x11-toolkits x11-wm
+
+```
+
+## Ports Collection Install  {#he32f657}
+
+```
+# portsnap fetch extract update
+
+```
+
+## Ports Collection Update  {#hdc8695e}
+
+```
+# portsnap fetch update
+
+```
+
+## Cron  {#u2bde76d}
+
+```
+# vi /etc/crontab
+
+#
+# portsnap cron and portversion
+0	3	*	*	*	root	portsnap cron update && portversion -vL=
+```
+

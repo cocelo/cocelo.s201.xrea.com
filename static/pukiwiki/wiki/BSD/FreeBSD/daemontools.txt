@@ -1,0 +1,29 @@
+* 目次 [#q0c6c5a5]
+
+#contents
+
+* daemontools について [#f3a51160]
+daemontools はデーモンを監視してくれるソフトウェアです。~
+プロセスが落ちてしまっても、自動で立ち上げなおしてくれたりします。
+
+* インストール [#r4504341]
+特にオプション等は指定しなくても大丈夫です。
+
+ # portinstall sysutils/daemontools
+
+* ディレクトリの作成 [#da0240bd]
+daemontools 配下で管理するデーモンを配置していくディレクトリを作成します。
+
+ # mkdir /var/service
+
+* 自動起動 [#e63e08ed]
+FreeBSD 起動時に自動で立ち上がるようにします。
+
+ # vi /etc/rc.conf
+
+ svscan_enable="YES"
+
+* 起動 [#e06b5e2e]
+daemontools を起動します。
+
+ # /usr/local/etc/rc.d/svscan.sh start

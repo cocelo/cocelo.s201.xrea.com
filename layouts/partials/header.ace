@@ -1,0 +1,21 @@
+meta charset="utf-8"
+{{ if eq .URL "/" }}
+title {{ .Site.Title }}
+{{ else }}
+title {{ .Title }} : {{ .Site.Title }}
+{{ end }}
+meta name="viewport" content="width=device-width, initial-scale=1"
+meta http-equiv="X-UA-Compatible" content="IE=edge"
+link rel="canonical" href="{{ .Permalink }}"
+{{ with .OutputFormats.Get "RSS" }}
+link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title | safeHTML }}"
+{{ end }}
+{{ if isset .Site.Params "keywords" }}
+meta name="keywords" content="{{ delimit .Site.Params.keywords "," }}"
+{{ end }}
+{{ if isset .Site.Params "description" }}
+meta name="description" content="{{ .Site.Params.description }}"
+{{ end }}
+{{ if isset .Site.Params "author" }}
+meta name="author" content="{{ .Site.Params.author }}"
+{{ end }}

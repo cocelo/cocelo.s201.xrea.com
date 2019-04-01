@@ -1,0 +1,27 @@
+#contents
+
+* Registry [#bdb537a9]
+[[Registry>Windows/XP/Registry]]
+Windows XP のレジストリを編集する。
+
+* Patch [#q9ef4c8e]
+[[Patch>Windows/XP/Patch]]
+Windows XP のシステムファイルを書き換える。
+
+* Tool [#f4294f6c]
+[[Tool>Windows/XP/Tool]]
+cocelo が使っているツール。
+
+* Integration [#za23b002]
+[[Integration>Windows/XP/Integration]]
+Windows XP に Service Pack 、 Hotfix 、 Driver 、 App などを統合する。
+
+* Link [#i6376cad]
+[[HotFix Report:http://hotfix.jp/]]
+Hotfix の一覧。
+
+[[Windows XP SP2 テンプレ FAQ:http://teamcroud.fc2web.com/]]
+Windows XP の様々な Tips 、 FAQ が掲載されている。
+
+[[WinXP消してもいいファイルまとめ:http://deletable.fc2web.com/]]
+不必要なサービスの削除、ファイルの削除の一覧が掲載されている。

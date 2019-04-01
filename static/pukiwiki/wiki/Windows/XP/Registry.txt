@@ -1,0 +1,21 @@
+#contents
+
+* Tips [#mbb32b5d]
+[[レジストリの概要>Windows/XP/Registry/About]]
+
+* How To [#ma95d9d8]
+[[管理共有を無効にする>Windows/XP/Registry/001]]
+[[共有ドキュメントフォルダをマイコンピュータから削除>Windows/XP/Registry/002]]
+[[システムの環境変数>Windows/XP/Registry/003]]
+[[ワトソン博士を無効化>Windows/XP/Registry/004]]
+[[不要なDLLをメモリから削除する>Windows/XP/Registry/005]]
+[[L2 Cache の値を指定>Windows/XP/Registry/006]]
+[[カーネルメモリのページプールを物理メモリに置く>Windows/XP/Registry/007]]
+
+* Link [#la219294]
+[[Microsoft Windows レジストリの説明:http://support.microsoft.com/kb/256986/JA/]]
+[[ビギナーズ レジストリ大全:http://www.remus.dti.ne.jp/~anfiny/reg/index.html]]
+[[Regist"o"ry:http://www.haltz.com/rgstry/]]
+[[Windows 2000/XPのFont Link機能 (Font Linking):http://blue.ribbon.to/~akene/fontlink.htm]]
+[[Semplice - Windowsのレジストリ（Registry）におけるハイブ構造とSID:http://blog.lucanian.net/archives/50581962.html]]
+[[Windows XP における [スタート] メニューのポリシー設定:http://support.microsoft.com/kb/292504/ja/]]

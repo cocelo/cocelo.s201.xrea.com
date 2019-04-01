@@ -1,0 +1,64 @@
+#contents
+
+* chkrootkit とは [#bfc0c165]
+FreeBSD は比較的セキュアだと言われていますが、何も対策していない状態ではそのセキュアな仕組みも生かせません。
+例えばルートキットをシステムに仕込まれると、悪意あるユーザが仕込んだソフトウェアを隠蔽等などが可能になります。
+これは権限という概念を悪用したもので、管理者は常に気を配る必要があります。
+
+* インストール [#ab553a76]
+portinstall でインストールします。
+
+ % sudo portinstall security/chkrootkit
+
+ ######################################################################
+ #
+ # WARNING: chkproc process gives false positives values on
+ #          FreeBSD >= 6.x, and, due this fact, the getpriority code
+ #          added to identify LKMs was removed.
+ #          So, use with caution.
+ #
+ #          This error will be fixed in the next chkrootkit version.
+ #
+ ######################################################################
+
+ % rehash
+
+* chkrootkit の実行 [#c6f87f94]
+chkrootkit を実行して、ルートキットが仕掛けられていないかどうか調べます。
+
+ % sudo chkrootkit
+
+いろいろと文字が流れてきたと思いますが、注目すべきは ''INFECTED'' の文字が出てきた時です。
+''INFECTED'' は文字通り、感染しているということなので、感染しているファイルが見つかった場合は早急に対処してください。
+
+* periodic で自動実行させる [#ld472fd9]
+下記のようなスクリプトを作成して chkrootkit を periodic security で自動実行させ、ルートキットを検知した場合は root にメールをするようにします。
+
+ % sudo vi /usr/local/etc/periodic/security/430.chkrootkit
+
+ #!/bin/sh
+ #
+ 
+ # If there is a global system configuration file, suck it in.
+ #
+ if [ -r /etc/defaults/periodic.conf ]; then
+     . /etc/defaults/periodic.conf
+     source_periodic_confs
+ fi
+ 
+ rc=0
+ case "${daily_status_security_chkrootkit_enable:-YES}" in
+ 	[Nn][Oo])
+ 		;;
+ 	*)
+ 		echo ""
+ 		echo "Checking for a chkrootkit:"
+ 		/usr/local/sbin/chkrootkit -q || rc=$?
+ 		;;
+ esac
+ 
+ exit "$rc"
+
+実行権限を与え、自動実行されるようにします。
+
+ % sudo chmod 755 /usr/local/etc/periodic/security/430.chkrootkit

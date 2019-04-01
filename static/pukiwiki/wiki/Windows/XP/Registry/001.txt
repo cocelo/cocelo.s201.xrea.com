@@ -1,0 +1,7 @@
+* 管理共有を無効にする [#c4633a67]
+
+#contents
+
+** Entry [#id0a765a]
+ [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Lanmanserver\parameters]
+ "AutoShareWks"=0

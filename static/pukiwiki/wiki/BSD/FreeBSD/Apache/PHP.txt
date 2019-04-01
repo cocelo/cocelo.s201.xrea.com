@@ -1,0 +1,21 @@
+* PHP Memo [#x847036d]
+
+#contents
+
+** First Step [#j8fe927f]
+[[pkgtools.conf>BSD/FreeBSD/portupgrade#ue11c464]] の設定を済ましておく。~
+[[Apache>BSD/FreeBSD/Apache]] をインストールしておく。
+
+** Install [#dd3072c2]
+ # portinstall lang/php5
+ # portinstall lang/php5-extensions
+ # rehash
+
+ # cp /usr/local/etc/php.ini-recommended /usr/local/etc/php.ini
+
+** Setting [#o72ce6ad]
+ # vi /usr/local/etc/apache22/httpd.conf
+
+ DirectoryIndex index.html index.htm index.cgi index.php
+ AddType application/x-httpd-php .php
+ AddType application/x-httpd-php-source .phps

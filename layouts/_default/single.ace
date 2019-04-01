@@ -1,0 +1,34 @@
+= doctype html
+html
+  head
+    = include partials/header.html .
+  body
+    = include partials/xrea_ad.html .
+    main
+      section
+        div id="meta"
+          h1 id="title" {{ .Title }}
+          ul id="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"
+            {{ $.Scratch.Set "breadcrumb" "" }}
+            {{ $array := split .RelPermalink "/" }}
+            {{ range $index, $element := $array }}
+              {{ $.Scratch.Add "breadcrumb" $element }}
+              {{ $.Scratch.Add "breadcrumb" "/" }}
+              {{ $url := $.Scratch.Get "breadcrumb" }}
+                li
+                  a href="{{ $url }}" itemprop="url"
+                    {{ if eq $index 0 }}
+                      span itemprop="title" Home
+                    {{ else }}
+                      span itemprop="title" {{ title $element }}
+                    {{ end }}
+            {{ end }}
+          p id="date" 最終更新日: {{ .Date.Format "2006/01/02 15:04:05" }}
+          div id="toc"
+            h2 目次
+            {{ .TableOfContents }}
+      section
+        div id="main"
+          article id="content"
+            {{ .Content }}
+    = include partials/footer.html .

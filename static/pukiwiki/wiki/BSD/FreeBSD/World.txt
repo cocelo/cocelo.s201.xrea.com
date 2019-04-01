@@ -1,0 +1,106 @@
+#contents
+
+* ソースツリー同期 [#g954af3e]
+#pre{{
+# csup -h cvsup.jp.freebsd.org -4 -1 -Z -l /var/run/csup.pid -L 2 /usr/share/examples/cvsup/stable-supfile
+}}
+
+* fastest_cvsupを使ってソースツリー同期 [#v61c5894]
+#pre{{
+# csup -h `fastest_cvsup -c jp -Q` -4 -1 -Z -l /var/run/csup.pid -L 2 /usr/share/examples/cvsup/stable-supfile
+}}
+
+* tmpfsで/usr/objをマウント [#t3dc9d64]
+メモリを2G以上搭載している場合は/usr/objを全てメモリディスクに配置できる。
+つまり、HDDの書き込みが高速化される。
+
+#pre{{
+# mount -t tmpfs tmpfs /usr/obj
+}}
+
+* geom_uzipでbuildworld, buildkernelの結果を保存 [#a582c24c]
+tmpfsなどのメモリディスクを使用してbuildworld, buildkernelすると再起動時に全て失われてしまう。
+なので、mkuzipで結果を読込専用デバイスファイルとして保存しておく。
+こうしておけばgeom_uzipでマウント、installworld, installkernelできるというワケ。
+
+ちなみに元ネタはuyotaさんのブログです。
+
+[[/usr/ports-*.uzip: uyota 匠の一手:http://uyota.asablo.jp/blog/2006/03/25/302591]]
+[[mount_md: mdmfs + suffix patch: uyota 匠の一手:http://uyota.asablo.jp/blog/2006/05/15/365756]]
+
+まずは/usr/srcの圧縮から。
+
+#pre{{
+# tar cvpf src_8.0-RELEASE.tar -C/usr/src .
+# dd if=/dev/zero of=src count=1 seek=599 bs=1M
+# mdconfig -a -t vnode -f src
+# newfs -U md0
+# mount /dev/md0 /usr/src
+# tar xvpf src_8.0-RELEASE.tar -C /usr/src
+# umount /usr/src
+# mdconfig -d -u 0
+# mkuzip -v -s 65536 -o src_8.0-RELEASE.uzip src
+}}
+
+次に/usr/objの圧縮。
+
+#pre{{
+# tar cvpf obj_8.0-RELEASE.tar -C/usr/obj .
+# dd if=/dev/zero of=obj count=1 seek=1799 bs=1M
+# mdconfig -a -t vnode -f obj
+# newfs -U md0
+# mount /dev/md0 /usr/obj
+# tar xvpf obj_8.0-RELEASE.tar -C /usr/obj
+# umount /usr/obj
+# mdconfig -d -u 0
+# mkuzip -v -s 65536 -o obj_8.0-RELEASE.uzip obj
+}}
+
+適切なnewfsのオプションを渡せば更に圧縮できるがblock/flagment/inodeを算出するのはﾏﾝﾄﾞｸｾだったので適当にやっている。
+
+マウントする時にはgeom_uzipをmdconfig経由で使う。
+カーネルモジュールを読み込むので、カーネルコンフィグには気を付けること。
+具体的にはmakeoptions NO_MODULESを指定している場合は該当行を削除して、makeoptions MODULES_OVERRIDE="geom/geom_uzip"としておきます。
+もしくはoptions GEOM_UZIPとしておけばカーネルに静的に組み込まれます。
+静的に組み込まなかった場合はマウント前にkldload geom_uzipとしてgeom_uzipを使えるようにしてください。
+
+#pre{{
+# kldload geom_uzip
+# mdconfig -a -t vnode -f src_8.0-RELEASE.uzip
+# mdconfig -a -t vnode -f obj_8.0-RELEASE.uzip
+# mount -r /dev/md0.uzip /usr/src
+# mount -r /dev/md1.uzip /usr/obj
+}}
+
+おもしろい例としてLiveDVDを作成したら、*.uzipファイルをLiveDVDの/usrにおいて以下のようにfstabを設定してあげるとLiveDVDでinstallworld installkernelできる。
+
+#pre{{
+md.uzip /usr/src mfs ro,-P,-F/usr/src_8.0-RELEASE.uzip 0 0
+md.uzip /usr/obj mfs ro,-P,-F/usr/obj_8.0-RELEASE.uzip 0 0
+}}
+
+上記をやる場合にはLiveDVDの/boot/loader.confでgeom_uzipが読み込まれるようにしなければならない。
+
+#pre{{
+geom_uzip_load="YES"
+}}
+
+これのメリットとして標準のFreeBSDインストーラーだとZFSブート(というかZFSパーティション)が作れないのでインストール途中にsys/bootをmakeすることになる。更に、最近出たゼロデイパッチをamd64にあてる場合はbuildworldする事になる。
+だったらその結果を保存しておいて他の計算機上でも使えるLiveDVD作っちゃえばいいんじゃね？って事でこうなりました。
+つまりはデスクトップPCでも昨今のPC事情から察するにZFSはベストソリューションだと思う(メモリ少なかったり貧弱なPCは除く)ので使い回しができる訳です。
+これを応用するとパッケージとかも入れておいてうはｗｗｗもうこれ立派なインストーラーｗｗｗとか一人で悦に浸るも良し、他のOSも入れてマルチレスキュー&インストーラーDVDとしてもよし。もうなんでもアリです。あとは個人の発想次第。
+
+* tarでbuildworld, buildkernelの結果を保存 [#o640d9e5]
+こちらは単純にtarで固めて解凍する方法。
+
+#pre{{
+# tar cpzf src_8.0-RELEASE.tar.gz -C/usr/src .
+# tar cpzf obj_8.0-RELEASE.tar.gz -C/usr/obj .
+}}
+
+解凍時には以下のように。
+
+#pre{{
+# tar xpf src_8.0-RELEASE.tar.gz -C /usr/src
+# tar xpf obj_8.0-RELEASE.tar.gz -C /usr/obj
+}}

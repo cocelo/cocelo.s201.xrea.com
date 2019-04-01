@@ -1,0 +1,7 @@
+ cWnd /hide @
+ 
+ @echo off
+ 
+ shutdown.exe -s -f -t 300
+ 
+ exit

@@ -1,0 +1,7 @@
+* L2 Cache の値を指定 [#rbd3adb8]
+
+#contents
+
+** Entry [#ob60a0f0]
+ [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SessionManager\MemoryManagement]
+ "SecondLevelDataCache"=1024

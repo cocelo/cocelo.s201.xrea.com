@@ -1,0 +1,130 @@
+#contents
+
+* distcc とは [#f241af3a]
+distcc は ports やカーネルの再構築をする際に、ネットワーク上のサーバにコンパイルを手伝わせる事ができます。
+例えば処理能力が遅いノート PC の代わりにサーバ側でコンパイルする事によって、処理時間を短縮できたりと、便利なソフトウェアです。
+注意事項として、 distcc を使っている場合に一部 ports のコンパイルが失敗する事や、ホスト <=> クライアントの関係なので、それぞれ設定内容が違うということです。
+
+* インストール [#m2137f5d]
+ホスト、クライアントどちらもまずは distcc のインストールからです。
+
+ % sudo portinstall devel/distcc
+
+ WARNING: distcc[d] performs NO AUTHENTICATION at all and should
+ ONLY be used in trusted networks!
+ 
+ NEW in 2.18
+ Distccd now requires the --allow (-a) argument when running
+ in daemon mode. This option restricts distcc to a specific
+ network, by default this port uses 127.0.0.0/8, you should
+ change this by specifying your own distccd_flags in
+ /etc/rc.conf, see the script in etc/rc.d/distccd.sh for a
+ template.
+ 
+ Additionally it is recommended that you add entries to
+ /etc/syslog.conf to record all distccd log messages to a file
+ such as /var/log/distccd.log.
+ 
+ Example syslog.conf entry:
+ 
+ !distccd
+ *.*                                     /var/log/distccd.log
+ 
+ The daemon runs on port 3632 by default. You can change that
+ value by calling distccd with the -p parameter, e.g.
+ `distccd -p 4711'. Do not edit the rc.d script to achieve this
+ instead override the value of distccd_flags in /etc/rc.conf.
+ 
+ Note that remote daemons currently won't work if they cannot
+ resolve the reverse DNS of the master machine
+
+* ホストサーバの設定 [#jacb4e9d]
+処理を手伝うホストサーバの設定を行います。
+と言っても、ログとデーモンの設定だけなので、難解な設定等はありません。
+
+** ログファイルの作成 [#u72fd1cf]
+まずは syslogd ( or syslog-ng ) 用にログファイルを作成します。
+
+ % sudo touch /var/log/distccd.log
+ % sudo chmod 640 /var/log/distccd.log
+
+** syslogd の設定 [#y06ce84a]
+次に syslogd の設定を行います。
+
+ % printf "\041distccd\n\052\056\052\t\t\t\t\t\t\057var\057log\057distccd\056log\n" | sudo tee /etc/syslog.conf
+ % sudo grep distccd /etc/syslog.conf
+ % sudo sh -c 'printf "\041distccd\n\052\056\052\t\t\t\t\t\t\057var\057log\057distccd\056log\n" >> /etc/syslog.conf'
+ % grep distccd /etc/syslog.conf
+
+ !distccd
+ *.*						/var/log/distccd.log
+
+syslogd を再起動します。
+
+ % sudo /etc/rc.d/syslogd restart
+
+** syslog-ng の設定 [#j89b8026]
+syslog-ng をインストールしている方はこちらを参考にしてください。
+
+ % sudoedit /usr/local/etc/syslog-ng.conf
+#pre{{
+destination distccd { file("/var/log/distccd.log"); };
+filter f_distccd { program("distccd"); };
+#
+# !distccd
+# *.*							/var/log/distccd.log
+log { source(src); filter(f_distccd); destination(distccd); };
+}}
+
+syslog-ng を再起動します。
+
+ % sudo /usr/local/etc/rc.d/syslog-ng restart
+
+** ログローテーションの設定 [#z9509cdf]
+ログファイルが肥大するとシステムのレスポンスが遅くなってしまうので、ログローテーションを行います。
+
+ % sudo sh -c 'printf "/var/log/distccd.log\t\t\t640  3\t   100\t\052     JC    /var/run/distccd.pid\n" >> /etc/newsyslog.conf'
+ % grep distccd /etc/newsyslog.conf
+
+ /var/log/distccd.log			640  3	   100	*     JC    /var/run/distccd.pid
+
+** 起動時に立ち上げる [#wf1e0799]
+起動時に distccd が立ち上がるようにします。
+
+ % sudo sh -c 'printf "\n# distcc\ndistccd_enable=\042YES\042\ndistccd_flags=\042-a 192.168.1.0/24 --user distcc --daemon -P /var/run/distccd.pid\042\n" >> /etc/rc.conf'
+ % grep distcc /etc/rc.conf
+
+ distccd_enable="YES"
+ distccd_flags="-a 192.168.1.0/24 --user distcc --daemon -P /var/run/distccd.pid"
+
+distccd を立ち上げます。
+
+ % sudo /usr/local/etc/rc.d/distccd start
+
+* 環境変数 CC と CXX を distcc に置き換える [#b9e9d897]
+ここからはホスト、クライアント共通の設定になります。
+CC と CXX ( コンパイラ ) を distcc に置き換える為に make.conf を書き換えます。
+
+ % sudoedit /etc/make.conf
+
+ CC=/usr/local/bin/distcc cc
+ CXX=/usr/local/bin/distcc c++
+
+* 分散先の設定 [#w6e30187]
+環境変数 DISTCC_HOSTS を設定し、分散先を決定します。
+
+ % sudoedit /etc/csh.cshrc
+
+ setenv DISTCC_HOSTS "localhost server1 server2"
+
+処理能力が遅い PC の場合は ''localhost を除いて記述'' してください。
+
+* 動作確認 [#pcf47a8d]
+buildkernel で正常にコンパイルできるかどうか確認します。
+なお ''-jN'' は ''分散先のコンピュータの CPU の数'' ( localhost を指定している場合は localhost の CPU 数を足して ) を指定してください。
+
+ % sudo -s
+ # cd /usr/src
+ # ( date && make -jN buildkernel ; date ) |& tee ~/MakeBuildKernel.log
+ # head -n 1 ~/MakeBuildKernel.log && tail -n 1 ~/MakeBuildKernel.log
+ # grep Warning ~/MakeBuildKernel.log

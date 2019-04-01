@@ -1,0 +1,96 @@
+#contents
+
+* はじめに [#t3ae5e4a]
+プリンタの共有、Windows ネットワークのマスタブラウザに設定する。
+
+* インストール [#r497c929]
+#pre{{
+# cd /usr/ports/print/cups-base
+# make -DBATCH WITH_PHP=yes WITH_PYTHON=yes \
+? WITH_PAM=yes WITH_LDAP=yes install clean
+}}
+
+#pre{{
+# cd /usr/ports/print/cups-pstoraster
+# make -DBATCH WITH_CJK=yes install clean
+}}
+
+次に samba のインストール。
+#pre{{
+# cd /usr/ports/net/samba3
+# make -DBATCH WITH_CUPS=yes WITH_SYSLOG=yes \
+? WITH_QUOTAS=yes WITH_PAM_SMBPASS=yes \
+? WITH_FAM_SUPPORT=yes WIH_ACL_SUPPORT=yes \
+? WITH_AIO_SUPPORT=yes WITH_CLUSTER=yes \
+? WITH_EXP_MODULES=yes install clean
+}}
+
+* cups の設定 [#u41a0b36]
+#pre{{
+# vi /usr/local/etc/cups/cupsd.conf
+}}
+
+#pre{{
+LogLevel info
+SystemGroup wheel
+
+Listen localhost:631
+Listen サーバのアドレス:631
+Listen /var/run/cups.sock
+
+Browsing On
+BrowseOrder Deny,Allow
+BrowseDeny From All
+BrowseAllow From 127.0.0.1
+BrowseAllow From ネットワークのアドレス
+
+DefaultAuthType Basic
+
+<Location />
+  Order Deny,Allow
+  Deny From All
+  Allow From 127.0.0.1
+  Allow From ネットワークのアドレス
+</Location>
+
+<Location /admin>
+  Encryption Required
+  Order Deny,Allow
+  Deny From All
+  Allow From 127.0.0.1
+  Allow From ネットワークのアドレス
+</Location>
+
+<Location /admin>
+  AuthType Default
+  Require user @SYSTEM
+  Order Deny,Allow
+  Deny From All
+  Allow From 127.0.0.1
+  Allow From ネットワークのアドレス
+</Location>
+
+以下はデフォルトのまま
+}}
+
+#pre{{
+# vi /usr/local/etc/cups/mime.convs
+}}
+
+#pre{{
+コメントアウトを外す。
+application/octet-stream	application/vnd.cups-raw	0	-
+}}
+
+#pre{{
+# vi /usr/local/etc/cups/mime.types
+}}
+
+#pre{{
+コメントアウトを外す。
+application/octet-stream
+}}
+
+** Brother HL-5250DN [#ha8e70a5]
+[[Ubuntu上からHL-5250DNでプリントできるようにする : Verboseモードでいこう:http://ja.verbmode.net/2008/12/02/enable_printing_with_hl5250dn]]
+[[FreeBSD Daily Topics：2009年4月8日　≪Tips≫linux_base-f8をインストールして使う方法（日本語設定版）4月1日以降対応｜gihyo.jp … 技術評論社:http://gihyo.jp/admin/clip/01/fdt/200904/08]]

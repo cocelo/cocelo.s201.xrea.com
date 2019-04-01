@@ -1,0 +1,14 @@
+* sendmail Memo [#l955eb9b]
+
+#contents
+
+** Link [#a22413a8]
+- [[SENDMAIL(8):http://www.jp.freebsd.org/cgi/mroff.cgi?subdir=man&lc=1&cmd=&man=sendmail&dir=jpman-6.2.2%2Fman&sect=0]]
+- [[sendmail の設定:http://www.freebsd.org/doc/ja_JP.eucJP/books/handbook/sendmail.html]]
+
+** Settings [#cf6f0a3e]
+
+*** IPv6 を無効にする [#mf91e9fb]
+ # vi /etc/mail/sendmail.cf
+
+ #O DaemonPortOptions=Name=IPv6, Family=inet6, Modifiers=O
